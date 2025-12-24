@@ -12,8 +12,8 @@ class Animal {
 }
 
 class Herbivore extends Animal {
-  constructor(name, health, hidden) {
-    super(hidden);
+  constructor(name, health) {
+    super(name, health);
 
     this.hidden = false;
   }
@@ -24,19 +24,10 @@ class Herbivore extends Animal {
 }
 
 class Carnivore extends Animal {
-  constructor(name, health, hidden) {
-    super();
-  }
-
   bite(target) {
-    if (target instanceof Carnivore) {
-      return;
+    if (target instanceof Herbivore && !target.hidden) {
+      target.health -= 50;
     }
-
-    if (target.hidden === true) {
-      return;
-    }
-    target.health -= 50;
 
     if (target.health <= 0) {
       Animal.alive = Animal.alive.filter((animal) => animal.health > 0);
